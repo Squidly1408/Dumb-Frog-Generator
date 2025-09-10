@@ -1,3 +1,4 @@
+
 ![Logo](./images/logo.svg)
 
 # Dumb-Frog Insult Generator
@@ -5,6 +6,10 @@
 Dumb-Frog Insult Generator is a fun, interactive web app that generates witty, themed insults at the click of a button. From pirates to sci-fi villains, medieval knights to cyberpunks, this app delivers hilarious roasts for any mood or setting. It’s designed to be lightweight, responsive, and entertaining, making it perfect for a quick laugh or playful trolling among friends.
 
 The project was created as a humorous experiment in combining random text generation with creative themes, animations, and light/dark mode support.
+
+## 📍 Visit it Live
+
+Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-generator.github.io/) and see this work.
 
 
 ## 🧱 Features

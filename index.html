@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dumb-Frog Insult Generator</title>
+    <link rel="shortcut icon" href="./images/logo.svg" type="image/x-icon">
+    <style>
+        :root {
+            --bg-color: #14532d;
+            --bg-gradient: radial-gradient(circle, #14532d, #052e16);
+            --text-color: #f8fafc;
+            --button-bg: #22c55e;
+            --button-text: #0f172a;
+            --shadow-color: #052e16;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            min-height: 100vh;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        .container {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 40px var(--shadow-color);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.6s ease forwards;
+            transition: background 0.5s, box-shadow 0.5s;
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 1rem;
+            animation: popIn 0.6s ease forwards;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px #22c55e;
+        }
+
+        #insult {
+            font-size: 1.6rem;
+            margin: 1.5rem 0;
+            min-height: 3rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        #insult.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        button,
+        select {
+            background: var(--button-bg);
+            border: none;
+            padding: 0.7rem 1.2rem;
+            font-size: 1rem;
+            color: var(--button-text);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        button:hover,
+        select:hover {
+            transform: scale(1.05);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Light mode variables */
+        body.light-mode {
+            --bg-color: #f8fafc;
+            --bg-gradient: radial-gradient(circle, #ffffff, #e5e7eb);
+            --text-color: #171717;
+            --button-bg: #22c55e;
+            --button-text: #f8fafc;
+            --shadow-color: #a6a6a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="logo" src="./images/logo.svg" alt="Dumb-Frog Logo">
+        <h1>🔥 Dumb-Frog Insult Generator 🔥</h1>
+        <div class="controls">
+            <select id="theme">
+                <option value="classic">Classic</option>
+                <option value="pirate">Pirate</option>
+                <option value="shakespeare">Shakespearean</option>
+                <option value="tech">Tech Roast</option>
+                <option value="gamer">Gamer Trash Talk</option>
+                <option value="knight">Medieval Knight</option>
+                <option value="scifi">Sci-Fi Roast</option>
+                <option value="villain">Cartoon Villain</option>
+                <option value="wizard">Wizard</option>
+                <option value="noir">Detective Noir</option>
+                <option value="gothic">Gothic Horror</option>
+                <option value="chef">Chef’s Kitchen</option>
+                <option value="robot">AI/Robot</option>
+                <option value="drama">Drama Queen</option>
+                <option value="cowboy">Wild West</option>
+                <option value="greek">Greek Mythology</option>
+                <option value="spaceopera">Space Opera</option>
+                <option value="cyberpunk">Cyberpunk</option>
+                <option value="villager">Medieval Peasant</option>
+                <option value="detective">Dectective</option>
+                <option value="circus">Circus</option>
+                <option value="vampire">Vampire</option>
+                <option value="surfer">Surfer</option>
+                <option value="hacker">Hacker</option>
+                <option value="ninja">Ninja</option>
+                <option value="alien">Alien</option>
+                <option value="royal">Royalty</option>
+                <option value="librarian">Librarian</option>
+                <option value="zombie">Zombie</option>
+                <option value="mermaid">Mermaid</option>
+                <option value="fairy">Fairy</option>
+                <option value="monk">Monk</option>
+                <option value="robotpunk">Robotpunk</option>
+                <option value="dinosaur">Dinosaur</option>
+                <option value="witch">Witch</option>
+                <option value="angel">Angel</option>
+                <option value="monster">Monster</option>
+                <option value="ghost">Ghost</option>
+            </select>
+            <button onclick="generateInsult()">Generate Insult</button>
+            <button onclick="toggleDarkLight()">Toggle Dark/Light Mode</button>
+        </div>
+        <p id="insult" aria-live="polite">Click the button for a legendary roast!</p>
+
+    </div>
+
+    <script>
+        const templates = [
+            "You ${v} like a ${a} ${n}.",
+            "I've seen a ${a} ${n} ${v} better than you.",
+            "Your skills could ${v} a ${a} ${n} in record time.",
+            "Somewhere a ${a} ${n} just learned how to ${v} from watching you.",
+            "That was a ${a} ${n} waiting to ${v}.",
+            "Only a ${a} ${n} would dare to ${v} like that.",
+            "Legend has it a ${a} ${n} once tried to ${v}... and did it better.",
+            "If brains were bytes, you'd be a ${a} ${n} trying to ${v} in 1995.",
+            "Congratulations, you're officially the ${a} ${n} of the century.",
+            "You make a ${a} ${n} look like a genius when they ${v}.",
+            "Your ability to ${v} is rivaled only by a ${a} ${n} on a bad day.",
+            "I've seen a ${a} ${n} ${v} with more grace than that.",
+            "That ${v} was so bad, a ${a} ${n} is offended.",
+            "Stop before you ${v} yourself into a ${a} ${n} permanently.",
+            "Even a ${a} ${n} knows not to ${v} like that.",
+            "When you ${v}, you make a ${a} ${n} proud.",
+            "The council of ${a} ${n}s has banned you from ever trying to ${v} again.",
+            "If I wanted advice from a ${a} ${n}, I'd just ${v} myself.",
+            "You couldn't ${v} your way out of a ${a} ${n} convention.",
+            "Even a ${a} ${n} would be embarrassed to ${v} like you.",
+            "Your ${v} skills are on par with a ${a} ${n} on roller skates.",
+            "Is that your best attempt to ${v}, or are you channeling a ${a} ${n}?",
+            "You make a ${a} ${n} look like royalty when you ${v}.",
+            "I've seen ${a} ${n}s ${v} with more dignity.",
+            "If ${v}ing was an Olympic sport, you'd be the ${a} ${n} who forgot to show up.",
+            "Some say a ${a} ${n} could ${v} better in their sleep.",
+            "You must have learned to ${v} from a ${a} ${n} on vacation.",
+            "If you were a ${n}, you'd be the ${a} kind nobody wants to ${v}.",
+            "I've met ${a} ${n}s with more sense than your attempt to ${v}.",
+            "You ${v} like a ${a} ${n} at a talent show.",
+            "Even a ${a} ${n} would cringe at your ${v} skills.",
+            "Your ${v} is so ${a}, it makes a ${n} look impressive.",
+            "A ${a} ${n} could teach you how to ${v} properly.",
+            "You just set a new low for ${v}ing, even for a ${a} ${n}.",
+            "If there was a contest for worst ${v}, you'd be the ${a} ${n} champion.",
+            "You make every ${a} ${n} proud to not know how to ${v}.",
+            "The last time someone tried to ${v} like that, they became a ${a} ${n}."
+        ];
+
+
+        const themes = {
+    classic: { adjectives: ["fluffy", "goofy", "wobbly", "bumbling", "wonky", "clumsy", "soggy", "half-baked", "loopy", "sloppy"], nouns: ["muffin", "teaspoon", "marshmallow", "rubber duck", "potato", "gnome", "pancake", "spoon", "sock puppet"], verbs: ["shuffle", "waddle", "bamboozle", "fumble", "muddle", "flap about", "trip", "tumble"] },
+    pirate: { adjectives: ["salty", "barnacled", "scurvy", "rum-soaked", "peg-legged"], nouns: ["landlubber", "bilge rat", "deck-swabber", "scallywag"], verbs: ["blunder", "stagger", "yaw", "plunder"] },
+    shakespeare: { adjectives: ["wayward", "frothy", "brazen", "addle-pated"], nouns: ["codpiece", "canker-blossom", "clotpole"], verbs: ["prattle", "babble", "bluster"] },
+    tech: { adjectives: ["deprecated", "buggy", "glitchy"], nouns: ["API call", "commit", "merge conflict"], verbs: ["debug", "rollback", "freeze"] },
+    gamer: { adjectives: ["laggy", "salty", "tilted", "camping"], nouns: ["noob", "spawn camper", "AFK player"], verbs: ["ragequit", "throw", "feed"] },
+    knight: { adjectives: ["rusty", "cowardly", "muddy"], nouns: ["squire", "stable boy", "court jester"], verbs: ["duel", "kneel", "yield"] },
+    scifi: { adjectives: ["quantum", "intergalactic", "wormholed"], nouns: ["android", "nebula rat", "space slug"], verbs: ["teleport", "phase shift", "implode"] },
+    villain: { adjectives: ["diabolical", "maniacal", "overdramatic"], nouns: ["henchman", "minion", "sidekick"], verbs: ["scheme", "cackle", "monologue"] },
+    wizard: { adjectives: ["bewitched", "hexed", "arcane"], nouns: ["troll", "goblin", "potion"], verbs: ["curse", "summon", "bewitch"] },
+    noir: { adjectives: ["smoky", "gritty", "hard-boiled"], nouns: ["gumshoe", "crook", "dame"], verbs: ["stakeout", "shadow", "double-cross"] },
+    gothic: { adjectives: ["brooding", "ghastly", "haunting"], nouns: ["phantom", "crypt keeper", "vampire"], verbs: ["haunt", "slink", "howl"] },
+    chef: { adjectives: ["burnt", "overcooked", "raw"], nouns: ["soufflé", "meatball", "cabbage"], verbs: ["overcook", "undercook", "burn"] },
+    robot: { adjectives: ["binary", "glitched", "outdated"], nouns: ["motherboard", "datapacket", "algorithm"], verbs: ["reboot", "overheat", "segfault"] },
+    drama: { adjectives: ["melodramatic", "theatrical", "whiny"], nouns: ["diva", "spotlight stealer", "crybaby"], verbs: ["sob", "wail", "faint"] },
+    cowboy: { adjectives: ["dusty", "ornery", "rowdy"], nouns: ["cowpoke", "varmint", "tumbleweed"], verbs: ["lasso", "draw", "spit"] },
+    greek: { adjectives: ["mythic", "heroic", "hubristic"], nouns: ["minotaur", "hydra", "oracle"], verbs: ["smite", "prophecy", "fall"] },
+    spaceopera: { adjectives: ["galactic", "rebellious", "imperial"], nouns: ["space pirate", "stormtrooper", "droid"], verbs: ["blast", "warp", "sabotage"] },
+    cyberpunk: { adjectives: ["neon-lit", "hacked", "augmented"], nouns: ["netrunner", "cyborg", "data thief"], verbs: ["jack in", "hack", "glitch"] },
+    villager: { adjectives: ["mud-caked", "toothless", "grubby"], nouns: ["peasant", "goat herder", "turnip farmer"], verbs: ["grumble", "hoe", "beg"] },
+    detective: { adjectives: ["clueless", "bumbling", "absent-minded"], nouns: ["gumshoe", "suspect", "sidekick"], verbs: ["botch", "misplace", "bungle"] },
+    circus: { adjectives: ["clownish", "slapstick", "gaudy"], nouns: ["juggler", "ringmaster", "mime"], verbs: ["trip", "fumble", "tumble"] },
+    vampire: { adjectives: ["bloodless", "pale", "fangless"], nouns: ["bat", "ghoul", "thrall"], verbs: ["lurk", "slink", "brood"] },
+    surfer: { adjectives: ["wiped-out", "salty", "sunburned"], nouns: ["grommet", "wave rider", "beach bum"], verbs: ["wipeout", "bail", "flounder"] },
+    hacker: { adjectives: ["script-kiddie", "unpatched", "phishy"], nouns: ["cracker", "spammer", "botnet"], verbs: ["brute-force", "leak", "crash"] },
+    ninja: { adjectives: ["clumsy", "unseen", "awkward", "shadowy", "masked", "silent"], nouns: ["shinobi", "apprentice", "foot soldier", "thrower", "shadow"], verbs: ["trip", "fumble", "vanish", "miss", "slip", "stumble"] },
+    alien: { adjectives: ["tentacled", "green", "awkward", "bug-eyed", "spacey", "extraterrestrial"], nouns: ["martian", "invader", "probe", "blob", "visitor", "mutant"], verbs: ["beam", "probe", "zap", "invade", "teleport", "malfunction"] },
+    royal: { adjectives: ["spoiled", "pampered", "regal", "overdressed", "vain", "entitled"], nouns: ["duke", "countess", "page", "heir", "courtier", "monarch"], verbs: ["command", "order", "demand", "fuss", "preen", "dictate"] },
+    librarian: { adjectives: ["dusty", "quiet", "bookish", "shushing", "absent-minded", "overdue"], nouns: ["cataloger", "page-turner", "archivist", "bookworm", "shelver", "indexer"], verbs: ["shush", "sort", "misfile", "stamp", "whisper", "lose"] },
+
+    // === New Themes ===
+    zombie: { adjectives: ["rotting", "decayed", "stinky"], nouns: ["walker", "shambler", "ghoul"], verbs: ["lurch", "groan", "bite"] },
+    mermaid: { adjectives: ["bubbly", "glittery", "slippery"], nouns: ["sea witch", "merman", "mermaid"], verbs: ["splash", "sing", "swim"] },
+    fairy: { adjectives: ["sparkly", "tiny", "mischievous"], nouns: ["pixie", "sprite", "imp"], verbs: ["flit", "giggle", "prank"] },
+    monk: { adjectives: ["silent", "stoic", "devout"], nouns: ["novice", "abbot", "friar"], verbs: ["meditate", "chant", "kneel"] },
+    robotpunk: { adjectives: ["rusty", "glitched", "overclocked"], nouns: ["servo", "cyber-droid", "automaton"], verbs: ["malfunction", "overheat", "spark"] },
+    dinosaur: { adjectives: ["ferocious", "tiny-armed", "scaly"], nouns: ["T-Rex", "raptor", "brontosaurus"], verbs: ["stomp", "chomp", "roar"] },
+    witch: { adjectives: ["cackling", "wicked", "sinister"], nouns: ["hag", "sorceress", "witch"], verbs: ["hex", "brew", "sneeze"] },
+    angel: { adjectives: ["holy", "fluffy", "glowing"], nouns: ["seraph", "cherub", "guardian"], verbs: ["bless", "soar", "shine"] },
+    monster: { adjectives: ["fuzzy", "spiky", "gross"], nouns: ["creature", "beast", "fiend"], verbs: ["stomp", "snarl", "growl"] },
+    ghost: { adjectives: ["ethereal", "spooky", "wailing"], nouns: ["phantom", "spirit", "apparition"], verbs: ["haunt", "float", "moan"] },
+};
+
+        function pick(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateInsult() {
+            const insultElement = document.getElementById("insult");
+            insultElement.classList.remove("show");
+            setTimeout(() => {
+                const theme = themes[document.getElementById("theme").value];
+                const a = pick(theme.adjectives);
+                const n = pick(theme.nouns);
+                const v = pick(theme.verbs);
+                const template = pick(templates);
+                insultElement.innerText = template.replace(/\$\{a\}/g, a).replace(/\$\{n\}/g, n).replace(/\$\{v\}/g, v);
+                insultElement.classList.add("show");
+            }, 150);
+        }
+
+        document.getElementById("theme").addEventListener("keydown", e => {
+            if (e.key === "Enter") generateInsult();
+        });
+
+        function toggleDarkLight() {
+            document.body.classList.toggle("light-mode");
+        }
+
+    </script>
+</body>
+
+</html>

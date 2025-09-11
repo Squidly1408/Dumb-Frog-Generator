@@ -30,6 +30,47 @@ Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-gene
 - The insult is displayed with an animation for a dynamic effect
 - Optional dark/light mode toggling changes the color scheme dynamically
 
+## 🎨 Themes include
+- Classic
+- Pirate
+- Shakespearean
+- Tech Roast
+- Gamer Trash Talk
+- Medieval Knight
+- Sci-Fi Roast
+- Cartoon Villain
+- Wizard
+- Detective Noir
+- Gothic Horror
+- Chef’s Kitchen
+- AI/Robot
+- Drama Queen
+- Wild West
+- Greek Mythology
+- Space Opera
+- Cyberpunk
+- Medieval Peasant
+- Detective
+- Circus
+- Vampire
+- Surfer
+- Hacker
+- Ninja
+- Alien
+- Royalty
+- Librarian
+- Zombie
+- Mermaid
+- Fairy
+- Monk
+- Robotpunk
+- Dinosaur
+- Witch
+- Angel
+- Monster
+- Ghost
+
+
 ## 🔧 Adding New Themes
 
 You can add your own themes by editing the `themes` object in the JavaScript file:

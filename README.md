@@ -30,7 +30,23 @@ Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-gene
 - The insult is displayed with an animation for a dynamic effect
 - Optional dark/light mode toggling changes the color scheme dynamically
 
-## 🎨 Themes include
+## 🔧 Adding New Themes
+
+You can add your own themes by editing the `themes` object in the JavaScript file:
+
+```javascript
+themes['newTheme'] = {
+    adjectives: ["funny", "silly"],
+    nouns: ["unicorn", "goblin"],
+    verbs: ["dance", "trip"]
+};
+```
+Then add it to the HTML dropdown:
+```html
+<option value="newTheme">New Theme</option>
+```
+
+## 🖼️ Themes include
 - Classic
 - Pirate
 - Shakespearean
@@ -69,22 +85,5 @@ Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-gene
 - Angel
 - Monster
 - Ghost
-
-
-## 🔧 Adding New Themes
-
-You can add your own themes by editing the `themes` object in the JavaScript file:
-
-```javascript
-themes['newTheme'] = {
-    adjectives: ["funny", "silly"],
-    nouns: ["unicorn", "goblin"],
-    verbs: ["dance", "trip"]
-};
-```
-Then add it to the HTML dropdown:
-```html
-<option value="newTheme">New Theme</option>
-```
 
 If you have any feedback, ideas, or bug reports, feel free to reach out to me at Squidly1408@gmail.com

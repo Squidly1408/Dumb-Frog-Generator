@@ -1,5 +1,4 @@
-
-![Logo](./images/logo.svg)
+![Logo](./images/github/banner.png)
 
 # Dumb-Frog Insult Generator
 
@@ -10,7 +9,6 @@ The project was created as a humorous experiment in combining random text genera
 ## 📍 Visit it Live
 
 Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-generator.github.io/) and see this work.
-
 
 ## 🧱 Features
 
@@ -35,18 +33,21 @@ Visit it live at [https://dumb-frog-generator.github.io/](https://dumb-frog-gene
 You can add your own themes by editing the `themes` object in the JavaScript file:
 
 ```javascript
-themes['newTheme'] = {
-    adjectives: ["funny", "silly"],
-    nouns: ["unicorn", "goblin"],
-    verbs: ["dance", "trip"]
+themes["newTheme"] = {
+  adjectives: ["funny", "silly"],
+  nouns: ["unicorn", "goblin"],
+  verbs: ["dance", "trip"],
 };
 ```
+
 Then add it to the HTML dropdown:
+
 ```html
 <option value="newTheme">New Theme</option>
 ```
 
 ## 🖼️ Themes include
+
 - Classic
 - Pirate
 - Shakespearean
